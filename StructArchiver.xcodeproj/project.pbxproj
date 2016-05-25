@@ -9,16 +9,14 @@
 /* Begin PBXBuildFile section */
 		43695B7E1CF3DE3600EBB2E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695B7D1CF3DE3600EBB2E8 /* AppDelegate.swift */; };
 		43695B801CF3DE3600EBB2E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695B7F1CF3DE3600EBB2E8 /* ViewController.swift */; };
-		43695B831CF3DE3600EBB2E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43695B811CF3DE3600EBB2E8 /* Main.storyboard */; };
 		43695B851CF3DE3600EBB2E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43695B841CF3DE3600EBB2E8 /* Assets.xcassets */; };
 		43695B881CF3DE3600EBB2E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43695B861CF3DE3600EBB2E8 /* LaunchScreen.storyboard */; };
 		43695B931CF3DE3600EBB2E8 /* StructArchiverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695B921CF3DE3600EBB2E8 /* StructArchiverTests.swift */; };
 		43695B9F1CF3DE6800EBB2E8 /* Archivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695B9E1CF3DE6800EBB2E8 /* Archivable.swift */; };
-		43695BA01CF3DE6800EBB2E8 /* Archivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695B9E1CF3DE6800EBB2E8 /* Archivable.swift */; };
 		43695BA21CF3DEC000EBB2E8 /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695BA11CF3DEC000EBB2E8 /* Archiver.swift */; };
-		43695BA31CF3DEC000EBB2E8 /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695BA11CF3DEC000EBB2E8 /* Archiver.swift */; };
 		43695BA51CF3E00B00EBB2E8 /* CustomArchivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695BA41CF3E00B00EBB2E8 /* CustomArchivable.swift */; };
-		43695BA61CF3E00B00EBB2E8 /* CustomArchivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695BA41CF3E00B00EBB2E8 /* CustomArchivable.swift */; };
+		43695BB11CF4226600EBB2E8 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695BB01CF4226600EBB2E8 /* DataSource.swift */; };
+		43C7F0C71CF511FC0083BC29 /* SampleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695BA71CF3E24800EBB2E8 /* SampleStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +33,6 @@
 		43695B7A1CF3DE3600EBB2E8 /* StructArchiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StructArchiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43695B7D1CF3DE3600EBB2E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43695B7F1CF3DE3600EBB2E8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		43695B821CF3DE3600EBB2E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43695B841CF3DE3600EBB2E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43695B871CF3DE3600EBB2E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43695B891CF3DE3600EBB2E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +42,8 @@
 		43695B9E1CF3DE6800EBB2E8 /* Archivable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archivable.swift; sourceTree = "<group>"; };
 		43695BA11CF3DEC000EBB2E8 /* Archiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archiver.swift; sourceTree = "<group>"; };
 		43695BA41CF3E00B00EBB2E8 /* CustomArchivable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomArchivable.swift; sourceTree = "<group>"; };
+		43695BA71CF3E24800EBB2E8 /* SampleStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleStruct.swift; sourceTree = "<group>"; };
+		43695BB01CF4226600EBB2E8 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,9 +86,10 @@
 			isa = PBXGroup;
 			children = (
 				43695B9D1CF3DE5300EBB2E8 /* Source */,
+				43695BA71CF3E24800EBB2E8 /* SampleStruct.swift */,
 				43695B7D1CF3DE3600EBB2E8 /* AppDelegate.swift */,
 				43695B7F1CF3DE3600EBB2E8 /* ViewController.swift */,
-				43695B811CF3DE3600EBB2E8 /* Main.storyboard */,
+				43695BB01CF4226600EBB2E8 /* DataSource.swift */,
 				43695B841CF3DE3600EBB2E8 /* Assets.xcassets */,
 				43695B861CF3DE3600EBB2E8 /* LaunchScreen.storyboard */,
 				43695B891CF3DE3600EBB2E8 /* Info.plist */,
@@ -199,7 +199,6 @@
 			files = (
 				43695B881CF3DE3600EBB2E8 /* LaunchScreen.storyboard in Resources */,
 				43695B851CF3DE3600EBB2E8 /* Assets.xcassets in Resources */,
-				43695B831CF3DE3600EBB2E8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,11 +216,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43695BB11CF4226600EBB2E8 /* DataSource.swift in Sources */,
 				43695B9F1CF3DE6800EBB2E8 /* Archivable.swift in Sources */,
 				43695BA21CF3DEC000EBB2E8 /* Archiver.swift in Sources */,
 				43695B801CF3DE3600EBB2E8 /* ViewController.swift in Sources */,
 				43695B7E1CF3DE3600EBB2E8 /* AppDelegate.swift in Sources */,
 				43695BA51CF3E00B00EBB2E8 /* CustomArchivable.swift in Sources */,
+				43C7F0C71CF511FC0083BC29 /* SampleStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,10 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43695BA01CF3DE6800EBB2E8 /* Archivable.swift in Sources */,
-				43695BA61CF3E00B00EBB2E8 /* CustomArchivable.swift in Sources */,
 				43695B931CF3DE3600EBB2E8 /* StructArchiverTests.swift in Sources */,
-				43695BA31CF3DEC000EBB2E8 /* Archiver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,14 +245,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		43695B811CF3DE3600EBB2E8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				43695B821CF3DE3600EBB2E8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		43695B861CF3DE3600EBB2E8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -306,6 +296,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -344,6 +335,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -debug-time-function-bodies";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -353,10 +345,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = StructArchiver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpn.naru.StructArchiver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 			};
 			name = Debug;
 		};
@@ -364,10 +358,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = StructArchiver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpn.naru.StructArchiver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 			};
 			name = Release;
 		};
@@ -414,6 +410,7 @@
 				43695B991CF3DE3600EBB2E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43695B9A1CF3DE3600EBB2E8 /* Build configuration list for PBXNativeTarget "StructArchiverTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +419,7 @@
 				43695B9C1CF3DE3600EBB2E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

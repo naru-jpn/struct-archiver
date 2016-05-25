@@ -8,8 +8,10 @@
 
 import Foundation
 
+/// Protocol for custom archivable struct
 public protocol CustomArchivable: Archivable {
     
+    /// Closure to restore struct from unarchived dictionary.
     static var restoreProcedure: ArchiveRestoreProcedure { get }
 }
 
@@ -35,22 +37,32 @@ public extension CustomArchivable {
     }
     
     public var archivedDataLength: Int {
-        return self.archivableChildren.archivedDataLength
+        
+        let archivableChildren: [String: Archivable] = self.archivableChildren
+        
+        let elementsLength: Int = archivableChildren.keys.reduce(0) { (length, key) in
+            length + key.archivedDataLength
+        } + archivableChildren.values.reduce(0) { (length, value) in
+            length + value.archivedDataLength
+        }
+        
+        return self.archivedIDLength + Int.ArchivedDataLength*(1+archivableChildren.keys.count*2) + elementsLength
     }
     
-    public func archivedHeaderData() -> [NSData] {
-        return self.archivableChildren.archivedHeaderData()
+    public var archivedHeaderData: [NSData] {
+        return self.archivableChildren.archivedHeaderData
     }
     
-    public func archivedBodyData() -> [NSData] {
-        return self.archivableChildren.archivedBodyData()
+    public var archivedBodyData: [NSData] {
+        return self.archivableChildren.archivedBodyData
     }
     
     public static var unarchiveProcedure: ArchiveUnarchiveProcedure {
         return ArchivableDictionary.unarchiveProcedure
     }
     
-    final public static func activateArchive() {
+    /// Store procedure to unarchive and restore data on memory.
+    public static func activateArchive() {
         Archiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
         Archiver.registerRestoreProcedure(identifier: self.archivedIdentifier, procedure: self.restoreProcedure)
     }

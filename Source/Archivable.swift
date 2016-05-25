@@ -8,55 +8,65 @@
 
 import Foundation
 
-public typealias Archivables = [Archivable]
-
-public typealias ArchivableDictionary = [String: Archivable]
-
-public typealias ArchiveUnarchiveProcedure = (data: NSData) -> Archivable
-
-public typealias ArchiveRestoreProcedure = (dictionary: ArchivableDictionary) -> Archivable
-
+/// Protocol for mutual conversion of struct and NSData
 public protocol Archivable {
     
-    var archivedIdentifier: String { get } // default
+    /// String to identify struct. (Implemented default behavior.)
+//    static var archivedIdentifier: String { get }
     
-    static var archivedIdentifier: String { get } // default
+    /// String to identify struct. (Implemented default behavior.)
+//    var archivedIdentifier: String { get }
     
-    var archivedIDLength: Int { get } // default
+    /// Number of bytes of data to identify archived struct. (Implemented default behavior.)
+//    var archivedIDLength: Int { get }
     
+    /// Number of bytes of the whole archived data.
     var archivedDataLength: Int { get }
     
-    func archivedIdentifierData() -> NSData // default
+    /// Metadata for the archived data.
+    var archivedHeaderData: [NSData] { get }
     
-    func archivedHeaderData() -> [NSData]
+    /// Body data for the archived data.
+    var archivedBodyData: [NSData] { get }
     
-    func archivedBodyData() -> [NSData]
+    /// The whole of archived data. (Implemented default behavior.)
+//    var archivedData: NSData { get }
     
-    func archivedData() -> NSData // default
-    
+    /// Closure to unarchive data.
     static var unarchiveProcedure: ArchiveUnarchiveProcedure { get }
-    
-    static func activateArchive()
 }
 
+/// Represent array of archivable object.
+public typealias Archivables = [Archivable]
+
+/// Represent type of dictionary containing archivable value.
+public typealias ArchivableDictionary = [String: Archivable]
+
+
+/// Define default implementation for the Archivable.
 public extension Archivable {
-    
+
+    /// Return name of type.
+    public static var archivedIdentifier: String {
+        return "\(self)"
+    }
+
+    /// Return name of type.
     public var archivedIdentifier: String {
         return "\(Mirror(reflecting: self).subjectType)"
     }
     
-    public static var archivedIdentifier: String {
-        return "\(self)"
-    }
-    
+    /// Length of identifier data
     public var archivedIDLength: Int {
         return sizeof(UInt8) + self.archivedIdentifier.characters.count
     }
     
+    /// Identifier data
     public func archivedIdentifierData() -> NSData {
-        
+        // count
         let identifier: String = self.archivedIdentifier
         var count: UInt8 = UInt8(identifier.characters.count)
+        // + identifier string
         let identifierData: NSMutableData = NSMutableData(bytes: &count, length: sizeof(UInt8))
         if let data = identifier.dataUsingEncoding(NSUTF8StringEncoding) {
             identifierData.appendData(data)
@@ -64,15 +74,17 @@ public extension Archivable {
         return identifierData
     }
     
-    public final func archivedData() -> NSData {
+    /// Whole of archived data
+    public var archivedData: NSData {
         let data: NSMutableData = NSMutableData(data: self.archivedIdentifierData())
-        for subdata in self.archivedHeaderData() + self.archivedBodyData() {
+        for subdata in self.archivedHeaderData + self.archivedBodyData {
             data.appendData(subdata)
         }
-        return data
+        return NSData(data: data)
     }
     
-    public final static func activateArchive() {
+    /// Store procedure to unarchive data on memory.
+    public static func activateArchive() {
         Archiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
     }
 }
@@ -86,20 +98,21 @@ extension Int: Archivable {
         return Int.ArchivedDataLength
     }
     
-    public func archivedHeaderData() -> [NSData] {
+    public var archivedHeaderData: [NSData] {
         return [NSData()]
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         var num: Int = self
         return [NSData(bytes: &num, length: sizeof(Int))]
     }
     
     public static var unarchiveProcedure: ArchiveUnarchiveProcedure {
         return { data in
+            // unarchive data as Int
             var value: Int = 0
-            let data: NSData = data.subdataWithRange(NSMakeRange(0, sizeof(UInt)))
-            data.getBytes(&value, length: sizeof(UInt))
+            let data: NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
+            data.getBytes(&value, length: sizeof(Int))
             return value
         }
     }
@@ -111,17 +124,18 @@ extension UInt: Archivable {
         return self.archivedIDLength + sizeof(UInt)
     }
     
-    public func archivedHeaderData() -> [NSData] {
+    public var archivedHeaderData: [NSData] {
         return [NSData()]
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         var value: UInt = self
         return [NSData(bytes: &value, length: sizeof(UInt))]
     }
     
     public static var unarchiveProcedure: ArchiveUnarchiveProcedure {
         return { data in
+            // unarchive data as UInt
             var value: UInt = 0
             let data: NSData = data.subdataWithRange(NSMakeRange(0, sizeof(UInt)))
             data.getBytes(&value, length: sizeof(UInt))
@@ -136,17 +150,18 @@ extension Float: Archivable {
         return self.archivedIDLength + sizeof(Float)
     }
     
-    public func archivedHeaderData() -> [NSData] {
+    public var archivedHeaderData: [NSData] {
         return [NSData()]
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         var value: Float = self
         return [NSData(bytes: &value, length: sizeof(Float))]
     }
     
     public static var unarchiveProcedure: ArchiveUnarchiveProcedure {
         return { data in
+            // unarchive data as Float
             var value: Float = 0
             let data: NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Float)))
             data.getBytes(&value, length: sizeof(Float))
@@ -161,17 +176,18 @@ extension Double: Archivable {
         return self.archivedIDLength + sizeof(Double)
     }
     
-    public func archivedHeaderData() -> [NSData] {
+    public var archivedHeaderData: [NSData] {
         return [NSData()]
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         var value: Double = self
         return [NSData(bytes: &value, length: sizeof(Double))]
     }
     
     public static var unarchiveProcedure: ArchiveUnarchiveProcedure {
         return { data in
+            // unarchive data as Double
             var value: Double = 0
             let data: NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Double)))
             data.getBytes(&value, length: sizeof(Double))
@@ -186,12 +202,12 @@ extension String: Archivable {
         return self.archivedIDLength + Int.ArchivedDataLength + self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
     }
     
-    public func archivedHeaderData() -> [NSData] {
+    public var archivedHeaderData: [NSData] {
         let length: Int = self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-        return [length.archivedData()]
+        return [length.archivedData]
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         guard let data = self.dataUsingEncoding(NSUTF8StringEncoding) else {
             return [NSData()]
         }
@@ -202,9 +218,11 @@ extension String: Archivable {
         
         return { data in
             
+            // get length of string
             let lengthData: NSData = data.subdataWithRange(NSMakeRange(0, Int.ArchivedDataLength))
             let length: Int = Archiver.defaultArchiver.unarchive(data: lengthData) as! Int
             
+            // unarchive data as String
             let textRange = NSMakeRange(Int.ArchivedDataLength, length)
             let textData = data.subdataWithRange(textRange)
             let text = NSString(data: textData, encoding: NSUTF8StringEncoding) as? String ?? ""
@@ -233,19 +251,19 @@ extension Array: Archivable {
         return self.archivedIDLength + Int.ArchivedDataLength*(1+archivableElements.count) + elementsLength
     }
     
-    public func archivedHeaderData() -> [NSData] {
-        let count: NSData = self.archivableElements().count.archivedData()
+    public var archivedHeaderData: [NSData] {
+        let count: NSData = self.archivableElements().count.archivedData
         let data: [NSData] = self.archivableElements().map { element in
             return element.archivedDataLength
-            }.map { length in
-                return length.archivedData()
+        }.map { length in
+            return length.archivedData
         }
         return [count] + data
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         let data: [NSData] = self.archivableElements().map { element in
-            return element.archivedData()
+            return element.archivedData
         }
         return data
     }
@@ -254,18 +272,20 @@ extension Array: Archivable {
         
         return { data in
             
+            // get number of elements
             let countData = data.subdataWithRange(NSMakeRange(0, Int.ArchivedDataLength))
             let count: Int = Archiver.defaultArchiver.unarchive(data: countData) as! Int
             
             let subdata: NSData = data.subdataWithRange(NSMakeRange(Int.ArchivedDataLength, data.length - Int.ArchivedDataLength))
             let splitData: NSData.SplitData = subdata.split(length: Int.ArchivedDataLength*count)
             
+            // get lengths of each elements
             let lengths: [Int] = splitData.former.splitIntoSubdata(lengths: [Int](count: count, repeatedValue: Int.ArchivedDataLength)).map { element in
                 return Archiver.unarchive(data: element) as! Int
             }
             
+            // unarchive each elements
             let elements: [Archivable] = splitData.latter.splitIntoSubdata(lengths: lengths).flatMap { element in
-                print("\(element)")
                 return Archiver.unarchive(data: element)
             }
             
@@ -273,7 +293,6 @@ extension Array: Archivable {
         }
     }
 }
-
 
 extension Dictionary: Archivable {
     
@@ -293,41 +312,41 @@ extension Dictionary: Archivable {
         
         let elementsLength: Int = archivableDictionary.keys.reduce(0) { (length, key) in
             length + key.archivedDataLength
-            } + archivableDictionary.values.reduce(0) { (length, value) in
-                length + value.archivedDataLength
+        } + archivableDictionary.values.reduce(0) { (length, value) in
+            length + value.archivedDataLength
         }
         
         return self.archivedIDLength + Int.ArchivedDataLength*(1+archivableDictionary.keys.count*2) + elementsLength
     }
     
-    public func archivedHeaderData() -> [NSData] {
+    public var archivedHeaderData: [NSData] {
         
-        // count of keys + count of values
-        let count: NSData = Int(self.archivableDictionary().keys.count).archivedData()
+        // number of pair of key, value
+        let count: NSData = Int(self.archivableDictionary().keys.count).archivedData
         
         // lengths of each key data
         let keys: [NSData] = self.archivableDictionary().keys.map { key in
             return key.archivedDataLength
-            }.map { (length: Int) in
-                return length.archivedData()
+        }.map { (length: Int) in
+            return length.archivedData
         }
         
         // lengths of each value data
         let values: [NSData] = self.archivableDictionary().values.map { value in
             return value.archivedDataLength
-            }.map { (length: Int) in
-                return length.archivedData()
+        }.map { (length: Int) in
+            return length.archivedData
         }
         
         return [count] + keys + values
     }
     
-    public func archivedBodyData() -> [NSData] {
+    public var archivedBodyData: [NSData] {
         let keys: [NSData] = self.archivableDictionary().keys.map { key in
-            return key.archivedData()
+            return key.archivedData
         }
         let values: [NSData] = self.archivableDictionary().values.map { value in
-            return value.archivedData()
+            return value.archivedData
         }
         return keys + values
     }
@@ -336,22 +355,20 @@ extension Dictionary: Archivable {
         
         return { data in
             
-            // get count of pair
+            // get number of pair of key, value
             let countData = data.subdataWithRange(NSMakeRange(0, Int.ArchivedDataLength))
             let count: Int = Archiver.defaultArchiver.unarchive(data: countData) as! Int
             
-            // get data without count info
             let subdata: NSData = data.subdataWithRange(NSMakeRange(Int.ArchivedDataLength, data.length - Int.ArchivedDataLength))
-            // split header part and body part
             let splitData: NSData.SplitData = subdata.split(length: Int.ArchivedDataLength*count*2)
             
-            // get lengths
+            // get lengths of each data
             let lengths: [Int] = splitData.former.splitIntoSubdata(lengths: [Int](count: count*2, repeatedValue: Int.ArchivedDataLength)).map { element in
                 return Archiver.defaultArchiver.unarchive(data: element) as! Int
             }
             
-            // split body
             let bodyParts: [NSData] = splitData.latter.splitIntoSubdata(lengths: lengths)
+            
             // get keys and values
             let keys: [String] = bodyParts[0..<count].flatMap { data in
                 return Archiver.unarchive(data: data) as? String
@@ -371,17 +388,17 @@ extension Dictionary: Archivable {
     }
 }
 
-extension NSData {
+public extension NSData {
     
-    public typealias SplitData = (former: NSData, latter: NSData)
+    typealias SplitData = (former: NSData, latter: NSData)
     
-    public func split(length length: Int) -> SplitData {
+    func split(length length: Int) -> SplitData {
         let former: NSData = self.subdataWithRange(NSMakeRange(0, length))
         let latter: NSData = self.subdataWithRange(NSMakeRange(length, self.length - length))
         return (former: former, latter: latter)
     }
     
-    public func splitIntoSubdata(lengths lengths: [Int]) -> [NSData] {
+    func splitIntoSubdata(lengths lengths: [Int]) -> [NSData] {
         
         let data: NSData = NSData(data: self)
         var result: [NSData] = [NSData]()
