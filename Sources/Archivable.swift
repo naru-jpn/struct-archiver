@@ -62,7 +62,7 @@ public extension Archivable {
     }
     
     /// Identifier data
-    public func archivedIdentifierData() -> NSData {
+    public var archivedIdentifierData: NSData {
         // count
         let identifier: String = self.archivedIdentifier
         var count: UInt8 = UInt8(identifier.characters.count)
@@ -76,7 +76,7 @@ public extension Archivable {
     
     /// Whole of archived data
     public var archivedData: NSData {
-        let data: NSMutableData = NSMutableData(data: self.archivedIdentifierData())
+        let data: NSMutableData = NSMutableData(data: self.archivedIdentifierData)
         for subdata in self.archivedHeaderData + self.archivedBodyData {
             data.appendData(subdata)
         }
