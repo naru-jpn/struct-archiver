@@ -1,0 +1,10 @@
+PODS:
+  - StructArchiver (0.0.1)
+
+DEPENDENCIES:
+  - StructArchiver
+
+SPEC CHECKSUMS:
+  StructArchiver: d9db1d947bbd79e65e47fa4c1b6a652a28c97d32
+
+COCOAPODS: 0.39.0
