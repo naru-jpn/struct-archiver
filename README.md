@@ -10,6 +10,7 @@ Archive struct and fundamental values into NSData and unarchive.
 
 + [x] Archive/Unarchive Fundamental Values 
 + [x] Archive/Unarchive Custom Struct Values
++ [ ] Linux Build (for Swift3)
 
 ## Requirements
 - iOS 8.0+
