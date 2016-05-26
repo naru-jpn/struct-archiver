@@ -1,10 +1,10 @@
 PODS:
-  - StructArchiver (0.0.2)
+  - StructArchiver (0.0.3)
 
 DEPENDENCIES:
   - StructArchiver
 
 SPEC CHECKSUMS:
-  StructArchiver: 92c15925d6955f7e3d5273817f2aaab42421f964
+  StructArchiver: 73928ab6b104806b96d7e51dc8d8137214e2ff58
 
 COCOAPODS: 0.39.0
