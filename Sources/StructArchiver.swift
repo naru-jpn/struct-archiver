@@ -1,5 +1,5 @@
 //
-//  Archiver.swift
+//  StructArchiver.swift
 //  StructArchiver
 //
 //  Created by naru on 2016/05/24.
@@ -15,10 +15,10 @@ public typealias ArchiveUnarchiveProcedure = (data: NSData) -> Archivable
 public typealias ArchiveRestoreProcedure = (dictionary: ArchivableDictionary) -> Archivable
 
 /// Class to store procedures for Archive.
-public class Archiver {
+public class StructArchiver {
     
     /// Return shared archiver.
-    public static let defaultArchiver: Archiver = Archiver()
+    public static let defaultArchiver: StructArchiver = StructArchiver()
     
     /// Store procedure to unarchive data.
     private var unarchiveProcedures: [String: ArchiveUnarchiveProcedure] = [String: ArchiveUnarchiveProcedure]()

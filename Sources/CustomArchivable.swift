@@ -63,7 +63,7 @@ public extension CustomArchivable {
     
     /// Store procedure to unarchive and restore data on memory.
     public static func activateArchive() {
-        Archiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
-        Archiver.registerRestoreProcedure(identifier: self.archivedIdentifier, procedure: self.restoreProcedure)
+        StructArchiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
+        StructArchiver.registerRestoreProcedure(identifier: self.archivedIdentifier, procedure: self.restoreProcedure)
     }
 }

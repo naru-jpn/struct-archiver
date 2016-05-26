@@ -85,7 +85,7 @@ public extension Archivable {
     
     /// Store procedure to unarchive data on memory.
     public static func activateArchive() {
-        Archiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
+        StructArchiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
     }
 }
 
@@ -220,7 +220,7 @@ extension String: Archivable {
             
             // get length of string
             let lengthData: NSData = data.subdataWithRange(NSMakeRange(0, Int.ArchivedDataLength))
-            let length: Int = Archiver.defaultArchiver.unarchive(data: lengthData) as! Int
+            let length: Int = StructArchiver.defaultArchiver.unarchive(data: lengthData) as! Int
             
             // unarchive data as String
             let textRange = NSMakeRange(Int.ArchivedDataLength, length)
@@ -274,19 +274,19 @@ extension Array: Archivable {
             
             // get number of elements
             let countData = data.subdataWithRange(NSMakeRange(0, Int.ArchivedDataLength))
-            let count: Int = Archiver.defaultArchiver.unarchive(data: countData) as! Int
+            let count: Int = StructArchiver.unarchive(data: countData) as! Int
             
             let subdata: NSData = data.subdataWithRange(NSMakeRange(Int.ArchivedDataLength, data.length - Int.ArchivedDataLength))
             let splitData: NSData.SplitData = subdata.split(length: Int.ArchivedDataLength*count)
             
             // get lengths of each elements
             let lengths: [Int] = splitData.former.splitIntoSubdata(lengths: [Int](count: count, repeatedValue: Int.ArchivedDataLength)).map { element in
-                return Archiver.unarchive(data: element) as! Int
+                return StructArchiver.unarchive(data: element) as! Int
             }
             
             // unarchive each elements
             let elements: [Archivable] = splitData.latter.splitIntoSubdata(lengths: lengths).flatMap { element in
-                return Archiver.unarchive(data: element)
+                return StructArchiver.unarchive(data: element)
             }
             
             return elements
@@ -357,24 +357,24 @@ extension Dictionary: Archivable {
             
             // get number of pair of key, value
             let countData = data.subdataWithRange(NSMakeRange(0, Int.ArchivedDataLength))
-            let count: Int = Archiver.defaultArchiver.unarchive(data: countData) as! Int
+            let count: Int = StructArchiver.unarchive(data: countData) as! Int
             
             let subdata: NSData = data.subdataWithRange(NSMakeRange(Int.ArchivedDataLength, data.length - Int.ArchivedDataLength))
             let splitData: NSData.SplitData = subdata.split(length: Int.ArchivedDataLength*count*2)
             
             // get lengths of each data
             let lengths: [Int] = splitData.former.splitIntoSubdata(lengths: [Int](count: count*2, repeatedValue: Int.ArchivedDataLength)).map { element in
-                return Archiver.defaultArchiver.unarchive(data: element) as! Int
+                return StructArchiver.unarchive(data: element) as! Int
             }
             
             let bodyParts: [NSData] = splitData.latter.splitIntoSubdata(lengths: lengths)
             
             // get keys and values
             let keys: [String] = bodyParts[0..<count].flatMap { data in
-                return Archiver.unarchive(data: data) as? String
+                return StructArchiver.unarchive(data: data) as? String
             }
             let values: [Archivable] = bodyParts[count..<count*2].flatMap { data in
-                return Archiver.unarchive(data: data)
+                return StructArchiver.unarchive(data: data)
             }
             
             // get result dictionary

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		439FB7261CF70F020017C94B /* Archivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439FB7231CF70F020017C94B /* Archivable.swift */; };
-		439FB7271CF70F020017C94B /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439FB7241CF70F020017C94B /* Archiver.swift */; };
+		439FB7271CF70F020017C94B /* StructArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439FB7241CF70F020017C94B /* StructArchiver.swift */; };
 		439FB7281CF70F020017C94B /* CustomArchivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439FB7251CF70F020017C94B /* CustomArchivable.swift */; };
 		439FB72C1CF70F0F0017C94B /* StructArchiver.h in Headers */ = {isa = PBXBuildFile; fileRef = 439FB72A1CF70F0F0017C94B /* StructArchiver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		439FB70F1CF70E660017C94B /* StructArchiver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StructArchiver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		439FB7231CF70F020017C94B /* Archivable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Archivable.swift; path = Sources/Archivable.swift; sourceTree = SOURCE_ROOT; };
-		439FB7241CF70F020017C94B /* Archiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Archiver.swift; path = Sources/Archiver.swift; sourceTree = SOURCE_ROOT; };
+		439FB7241CF70F020017C94B /* StructArchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StructArchiver.swift; path = Sources/StructArchiver.swift; sourceTree = SOURCE_ROOT; };
 		439FB7251CF70F020017C94B /* CustomArchivable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomArchivable.swift; path = Sources/CustomArchivable.swift; sourceTree = SOURCE_ROOT; };
 		439FB7291CF70F0F0017C94B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Info.plist; sourceTree = SOURCE_ROOT; };
 		439FB72A1CF70F0F0017C94B /* StructArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StructArchiver.h; path = Sources/StructArchiver.h; sourceTree = SOURCE_ROOT; };
@@ -52,9 +52,9 @@
 		439FB71A1CF70E8F0017C94B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				439FB7241CF70F020017C94B /* StructArchiver.swift */,
 				439FB7231CF70F020017C94B /* Archivable.swift */,
 				439FB7251CF70F020017C94B /* CustomArchivable.swift */,
-				439FB7241CF70F020017C94B /* Archiver.swift */,
 				439FB7221CF70EC30017C94B /* Supporting Files */,
 			);
 			name = Sources;
@@ -148,7 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				439FB7271CF70F020017C94B /* Archiver.swift in Sources */,
+				439FB7271CF70F020017C94B /* StructArchiver.swift in Sources */,
 				439FB7261CF70F020017C94B /* Archivable.swift in Sources */,
 				439FB7281CF70F020017C94B /* CustomArchivable.swift in Sources */,
 			);
