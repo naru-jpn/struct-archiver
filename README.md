@@ -1,11 +1,15 @@
 # Struct Archiver
 
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/StructArchiver.svg)](https://img.shields.io/cocoapods/v/StructArchiver.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform](https://img.shields.io/cocoapods/p/StructArchiver.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
+
 Archive struct and fundamental values into NSData and unarchive.
 
 ## Features
 
-+ [+] Archive/Unarchive Fundamental Values 
-+ [+] Archive/Unarchive Custom Struct Values 
++ [x] Archive/Unarchive Fundamental Values 
++ [x] Archive/Unarchive Custom Struct Values
 
 ## Requirements
 - iOS 8.0+
