@@ -32,7 +32,7 @@ pod 'StructArchiver'
 github "naru-jpn/struct-archiver"
 ```
 
-### ( Swift Packege Manager )
+### Swift Packege Manager
 
 
 ## Activation
