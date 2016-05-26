@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         // Setup
-        Archiver.activateStandardArchivables(withCustomStructActivations: {
+        StructArchiver.activateStandardArchivables(withCustomStructActivations: {
             SampleStruct.activateArchive()
         })
         

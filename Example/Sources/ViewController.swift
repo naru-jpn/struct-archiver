@@ -159,7 +159,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             return
         }
         
-        guard let samples: Archivables = Archiver.unarchive(data: data) as? Archivables else {
+        guard let samples: Archivables = StructArchiver.unarchive(data: data) as? Archivables else {
             // Failed to convert data
             let title: String = "Failed to convert data"
             let alertController: UIAlertController = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
