@@ -80,7 +80,7 @@ _Int_, _UInt_, _Float_, _Double_, _String_, _[Archibavle]_, _[String: Archibavle
 ### Archive/Unarchive Custom Struct Values 
 
 #### 1. Define CustomArchivable Struct
-Computed property restoreProcedure returns closure to convert dictionary into struct. Dictionary contains values of property.   
+Computed property restoreProcedure returns closure to convert dictionary into struct. Dictionary contains values of property having struct.
 
 ```
 struct SampleStruct: CustomArchivable {
