@@ -9,9 +9,7 @@ Archive struct and fundamental values into NSData and unarchive.
 ## Features
 
 + [x] Archive/Unarchive Fundamental Values 
-+ [x] Archive/Unarchive Custom Struct Values 
-+ [ ] Tests
-+ [ ] Build Status
++ [x] Archive/Unarchive Custom Struct Values
 
 ## Requirements
 - iOS 8.0+
