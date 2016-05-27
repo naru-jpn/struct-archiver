@@ -56,7 +56,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 ## Usage
 
 ### Archive/Unarchive Fundamental Values
-You can archive value as type conforming Archivable protocol and you can unarchive data by passing archived data to archiver.
+You can archive value of type conforming Archivable protocol and you can unarchive data by passing archived data to archiver.
 
 ```
 	// Int
