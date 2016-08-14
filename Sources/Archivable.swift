@@ -233,6 +233,17 @@ extension String: Archivable {
 
 extension Array: Archivable {
     
+    public func archivable() -> Archivables {
+        
+        var archivables: Archivables = Archivables()
+        self.forEach {
+            if let archivable: Archivable = $0 as? Archivable {
+                archivables.append(archivable)
+            }
+        }
+        return archivables
+    }
+    
     private func archivableElements() -> [Archivable] {
         
         return self.flatMap { element in
@@ -295,6 +306,17 @@ extension Array: Archivable {
 }
 
 extension Dictionary: Archivable {
+    
+    public func archivable() -> ArchivableDictionary {
+        
+        var archivableDictionary: ArchivableDictionary = ArchivableDictionary()
+        for (key, value) in self {
+            if let key = key as? String, let value = value as? Archivable {
+                archivableDictionary[key] = value
+            }
+        }
+        return archivableDictionary
+    }
     
     private func archivableDictionary() -> [String: Archivable] {
         var dictionary: [String: Archivable] = [String: Archivable]()

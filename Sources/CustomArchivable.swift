@@ -22,7 +22,13 @@ public extension CustomArchivable {
         var children: ArchivableDictionary = ArchivableDictionary()
         Mirror(reflecting: self).children.forEach { label, value in
             if let label = label, value = value as? Archivable {
-                children[label] = value
+                if let array = value as? Array<Any> {
+                    children[label] = array.archivable()
+                } else if let dictionary = value as? Dictionary<String, Archivable> {
+                    children[label] = dictionary.archivable()
+                } else {
+                    children[label] = value
+                }
             }
         }
         return children

@@ -12,7 +12,7 @@ import StructArchiver
 
 public class DataSource: NSObject, UITableViewDataSource {
     
-    public var samples: Archivables = Archivables()
+    public var samples: [SampleStruct] = []
     
     private lazy var dateFormatter: NSDateFormatter = {
         let formatter: NSDateFormatter = NSDateFormatter()
@@ -42,7 +42,7 @@ public class DataSource: NSObject, UITableViewDataSource {
     
     private func configulerCell(cell cell: UITableViewCell, indexPath: NSIndexPath) {
         
-        guard let sample: SampleStruct = self.samples[indexPath.row] as? SampleStruct else {
+        guard let sample: SampleStruct = self.samples[indexPath.row] else {
             return
         }
         

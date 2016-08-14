@@ -134,7 +134,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     private func save() {
         
-        let samples: Archivables = self.dataSource.samples
+        let samples: Archivables = self.dataSource.samples.archivable()
         
         // Archive sample data and save to file
         if !samples.archivedData.writeToFile(Constants.SavedPath, atomically: true) {
@@ -168,7 +168,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             return
         }
         
-        self.dataSource.samples = samples
+        self.dataSource.samples = samples.flatMap { $0 as? SampleStruct }
         self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, 1)), withRowAnimation: .Automatic)
         
         self.completeAction(message: "Loaded")
@@ -182,7 +182,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             return
         }
         
-        self.dataSource.samples = Archivables()
+        self.dataSource.samples = []
         self.tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, 1)), withRowAnimation: .Automatic)
         
         self.completeAction(message: "Cleared")
