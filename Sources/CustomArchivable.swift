@@ -9,7 +9,7 @@
 import Foundation
 
 /// Protocol for custom archivable struct
-public protocol CustomArchivable: Archivable {
+public protocol CustomArchivable: Archivable, ElementArchivable {
     
     /// Closure to restore struct from unarchived dictionary.
     static var restoreProcedure: ArchiveRestoreProcedure { get }
@@ -17,15 +17,13 @@ public protocol CustomArchivable: Archivable {
 
 public extension CustomArchivable {
     
-    private var archivableChildren: ArchivableDictionary {
+    private func archivable() -> Archivable {
         
         var children: ArchivableDictionary = ArchivableDictionary()
         Mirror(reflecting: self).children.forEach { label, value in
             if let label = label, value = value as? Archivable {
-                if let array = value as? Array<Any> {
-                    children[label] = array.archivable()
-                } else if let dictionary = value as? Dictionary<String, Archivable> {
-                    children[label] = dictionary.archivable()
+                if let elementArchivable: ElementArchivable = value as? ElementArchivable {
+                    children[label] = elementArchivable.archivable()
                 } else {
                     children[label] = value
                 }
@@ -44,7 +42,7 @@ public extension CustomArchivable {
     
     public var archivedDataLength: Int {
         
-        let archivableChildren: [String: Archivable] = self.archivableChildren
+        let archivableChildren: ArchivableDictionary = self.archivable() as! ArchivableDictionary
         
         let elementsLength: Int = archivableChildren.keys.reduce(0) { (length, key) in
             length + key.archivedDataLength
@@ -56,11 +54,13 @@ public extension CustomArchivable {
     }
     
     public var archivedHeaderData: [NSData] {
-        return self.archivableChildren.archivedHeaderData
+        let archivableChildren: ArchivableDictionary = self.archivable() as! ArchivableDictionary
+        return archivableChildren.archivedHeaderData
     }
     
     public var archivedBodyData: [NSData] {
-        return self.archivableChildren.archivedBodyData
+        let archivableChildren: ArchivableDictionary = self.archivable() as! ArchivableDictionary
+        return archivableChildren.archivedBodyData
     }
     
     public static var unarchiveProcedure: ArchiveUnarchiveProcedure {

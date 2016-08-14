@@ -134,7 +134,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     private func save() {
         
-        let samples: Archivables = self.dataSource.samples.archivable()
+        let samples: Archivable = self.dataSource.samples.archivable()
         
         // Archive sample data and save to file
         if !samples.archivedData.writeToFile(Constants.SavedPath, atomically: true) {

@@ -231,40 +231,40 @@ extension String: Archivable {
     }
 }
 
-extension Array: Archivable {
+
+public protocol ElementArchivable {
+    func archivable() -> Archivable
+}
+
+extension Array: Archivable, ElementArchivable {
     
-    public func archivable() -> Archivables {
+    public func archivable() -> Archivable {
         
         var archivables: Archivables = Archivables()
         self.forEach {
             if let archivable: Archivable = $0 as? Archivable {
-                archivables.append(archivable)
+                if let elementArchivable: ElementArchivable = archivable as? ElementArchivable {
+                    archivables.append(elementArchivable.archivable())
+                } else {
+                    archivables.append(archivable)
+                }
             }
         }
         return archivables
     }
     
-    private func archivableElements() -> [Archivable] {
-        
-        return self.flatMap { element in
-            guard let element = element as? Archivable else {
-                return nil
-            }
-            return element
-        }
-    }
-    
     public var archivedDataLength: Int {
-        let archivableElements: [Archivable] = self.archivableElements()
-        let elementsLength: Int = archivableElements.reduce(0, combine: {
+        let archivables: Archivables = self.archivable() as! Archivables
+        let elementsLength: Int = archivables.reduce(0, combine: {
             $0 + $1.archivedDataLength
         })
-        return self.archivedIDLength + Int.ArchivedDataLength*(1+archivableElements.count) + elementsLength
+        return self.archivedIDLength + Int.ArchivedDataLength*(1+archivables.count) + elementsLength
     }
     
     public var archivedHeaderData: [NSData] {
-        let count: NSData = self.archivableElements().count.archivedData
-        let data: [NSData] = self.archivableElements().map { element in
+        let archivables: Archivables = self.archivable() as! Archivables
+        let count: NSData = archivables.count.archivedData
+        let data: [NSData] = archivables.map { element in
             return element.archivedDataLength
         }.map { length in
             return length.archivedData
@@ -273,7 +273,8 @@ extension Array: Archivable {
     }
     
     public var archivedBodyData: [NSData] {
-        let data: [NSData] = self.archivableElements().map { element in
+        let archivables: Archivables = self.archivable() as! Archivables
+        let data: [NSData] = archivables.map { element in
             return element.archivedData
         }
         return data
@@ -305,32 +306,26 @@ extension Array: Archivable {
     }
 }
 
-extension Dictionary: Archivable {
+extension Dictionary: Archivable, ElementArchivable {
     
-    public func archivable() -> ArchivableDictionary {
+    public func archivable() -> Archivable {
         
         var archivableDictionary: ArchivableDictionary = ArchivableDictionary()
-        for (key, value) in self {
-            if let key = key as? String, let value = value as? Archivable {
-                archivableDictionary[key] = value
+        for (label, value) in self {
+            if let label = label as? String, value = value as? Archivable {
+                if let elementArchivable: ElementArchivable = value as? ElementArchivable {
+                    archivableDictionary[label] = elementArchivable.archivable()
+                } else {
+                    archivableDictionary[label] = value
+                }
             }
         }
         return archivableDictionary
     }
     
-    private func archivableDictionary() -> [String: Archivable] {
-        var dictionary: [String: Archivable] = [String: Archivable]()
-        for (key, value) in self {
-            if let key = key as? String, let value = value as? Archivable {
-                dictionary[key] = value
-            }
-        }
-        return dictionary
-    }
-    
     public var archivedDataLength: Int {
         
-        let archivableDictionary: [String: Archivable] = self.archivableDictionary()
+        let archivableDictionary: ArchivableDictionary = self.archivable() as! ArchivableDictionary
         
         let elementsLength: Int = archivableDictionary.keys.reduce(0) { (length, key) in
             length + key.archivedDataLength
@@ -343,18 +338,20 @@ extension Dictionary: Archivable {
     
     public var archivedHeaderData: [NSData] {
         
+        let archivableDictionary: ArchivableDictionary = self.archivable() as! ArchivableDictionary
+        
         // number of pair of key, value
-        let count: NSData = Int(self.archivableDictionary().keys.count).archivedData
+        let count: NSData = Int(archivableDictionary.keys.count).archivedData
         
         // lengths of each key data
-        let keys: [NSData] = self.archivableDictionary().keys.map { key in
+        let keys: [NSData] = archivableDictionary.keys.map { key in
             return key.archivedDataLength
         }.map { (length: Int) in
             return length.archivedData
         }
         
         // lengths of each value data
-        let values: [NSData] = self.archivableDictionary().values.map { value in
+        let values: [NSData] = archivableDictionary.values.map { value in
             return value.archivedDataLength
         }.map { (length: Int) in
             return length.archivedData
@@ -364,10 +361,13 @@ extension Dictionary: Archivable {
     }
     
     public var archivedBodyData: [NSData] {
-        let keys: [NSData] = self.archivableDictionary().keys.map { key in
+        
+        let archivableDictionary: ArchivableDictionary = self.archivable() as! ArchivableDictionary
+        
+        let keys: [NSData] = archivableDictionary.keys.map { key in
             return key.archivedData
         }
-        let values: [NSData] = self.archivableDictionary().values.map { value in
+        let values: [NSData] = archivableDictionary.values.map { value in
             return value.archivedData
         }
         return keys + values

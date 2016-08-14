@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "StructArchiver"
-  s.version      = "0.0.3"
+  s.version      = "0.0.5"
   s.summary      = "Archive struct into NSData and unarchive in Swift."
   s.homepage     = "https://github.com/naru-jpn/struct-archiver"
   s.license      = { :type => "MIT", :file => "LICENSE.txt" }
