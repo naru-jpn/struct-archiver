@@ -17,7 +17,7 @@ public protocol CustomArchivable: Archivable, ElementArchivable {
 
 public extension CustomArchivable {
     
-    private func archivable() -> Archivable {
+    func archivable() -> Archivable {
         
         var children: ArchivableDictionary = ArchivableDictionary()
         Mirror(reflecting: self).children.forEach { label, value in
