@@ -71,5 +71,6 @@ public extension CustomArchivable {
     public static func activateArchive() {
         StructArchiver.registerUnarchiveProcedure(identifier: self.archivedIdentifier, procedure: self.unarchiveProcedure)
         StructArchiver.registerRestoreProcedure(identifier: self.archivedIdentifier, procedure: self.restoreProcedure)
+        StructArchiver.registerUnarchiveProcedure(identifier: "Array<\(self.archivedIdentifier)>", procedure: Archivables.unarchiveProcedure)
     }
 }

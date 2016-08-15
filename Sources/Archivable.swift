@@ -243,11 +243,7 @@ extension Array: Archivable, ElementArchivable {
         var archivables: Archivables = Archivables()
         self.forEach {
             if let archivable: Archivable = $0 as? Archivable {
-                if let elementArchivable: ElementArchivable = archivable as? ElementArchivable {
-                    archivables.append(elementArchivable.archivable())
-                } else {
-                    archivables.append(archivable)
-                }
+                archivables.append(archivable)
             }
         }
         return archivables
@@ -313,11 +309,7 @@ extension Dictionary: Archivable, ElementArchivable {
         var archivableDictionary: ArchivableDictionary = ArchivableDictionary()
         for (label, value) in self {
             if let label = label as? String, value = value as? Archivable {
-                if let elementArchivable: ElementArchivable = value as? ElementArchivable {
-                    archivableDictionary[label] = elementArchivable.archivable()
-                } else {
-                    archivableDictionary[label] = value
-                }
+                archivableDictionary[label] = value
             }
         }
         return archivableDictionary
